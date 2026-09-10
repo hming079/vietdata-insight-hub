@@ -79,11 +79,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Data Assistant — Trợ lý dữ liệu doanh nghiệp" },
+      {
+        name: "description",
+        content:
+          "Nền tảng phân tích dữ liệu doanh nghiệp: Text-to-SQL tiếng Việt, hỏi đáp tài liệu RAG và quản trị hệ thống.",
+      },
+      { name: "author", content: "Data Assistant" },
+      { property: "og:title", content: "Data Assistant — Trợ lý dữ liệu doanh nghiệp" },
+      {
+        property: "og:description",
+        content: "Text-to-SQL tiếng Việt, hỏi đáp tài liệu và quản trị dữ liệu trong một nền tảng.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
