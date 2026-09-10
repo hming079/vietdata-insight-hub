@@ -186,7 +186,7 @@ function Header({ pathname }: { pathname: string }) {
               <Settings className="size-4" /> Cài đặt hệ thống
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive">
+            <DropdownMenuItem className="text-destructive">
               <LogOut className="size-4" /> Đăng xuất
             </DropdownMenuItem>
           </DropdownMenuContent>
