@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DocumentQaRouteImport } from './routes/document-qa'
 import { Route as OverviewRouteImport } from './routes/overview'
 import { Route as TextToSqlRouteImport } from './routes/text-to-sql'
+import { Route as UsersRouteImport } from './routes/users'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentQaRoute = DocumentQaRouteImport.update({
+  id: '/document-qa',
+  path: '/document-qa',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OverviewRoute = OverviewRouteImport.update({
@@ -34,39 +41,71 @@ const TextToSqlRoute = TextToSqlRouteImport.update({
   path: '/text-to-sql',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UsersRoute = UsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/document-qa': typeof DocumentQaRoute
   '/overview': typeof OverviewRoute
   '/text-to-sql': typeof TextToSqlRoute
+  '/users': typeof UsersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/document-qa': typeof DocumentQaRoute
   '/overview': typeof OverviewRoute
   '/text-to-sql': typeof TextToSqlRoute
+  '/users': typeof UsersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/document-qa': typeof DocumentQaRoute
   '/overview': typeof OverviewRoute
   '/text-to-sql': typeof TextToSqlRoute
+  '/users': typeof UsersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/overview' | '/text-to-sql'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/document-qa'
+    | '/overview'
+    | '/text-to-sql'
+    | '/users'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/overview' | '/text-to-sql'
-  id: '__root__' | '/' | '/dashboard' | '/overview' | '/text-to-sql'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/document-qa'
+    | '/overview'
+    | '/text-to-sql'
+    | '/users'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/document-qa'
+    | '/overview'
+    | '/text-to-sql'
+    | '/users'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  DocumentQaRoute: typeof DocumentQaRoute
   OverviewRoute: typeof OverviewRoute
   TextToSqlRoute: typeof TextToSqlRoute
+  UsersRoute: typeof UsersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,6 +124,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/document-qa': {
+      id: '/document-qa'
+      path: '/document-qa'
+      fullPath: '/document-qa'
+      preLoaderRoute: typeof DocumentQaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/overview': {
       id: '/overview'
       path: '/overview'
@@ -99,14 +145,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TextToSqlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/users': {
+      id: '/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof UsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  DocumentQaRoute: DocumentQaRoute,
   OverviewRoute: OverviewRoute,
   TextToSqlRoute: TextToSqlRoute,
+  UsersRoute: UsersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
