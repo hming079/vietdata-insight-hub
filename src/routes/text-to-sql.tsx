@@ -442,7 +442,7 @@ function ResultBlock() {
         <TabsContent value="chart" className="m-0">
           <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-2.5">
             <Select value={chartType} onValueChange={setChartType}>
-              <SelectTrigger size="sm" className="w-[150px]">
+              <SelectTrigger className="h-8 text-[13px] w-[150px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -452,7 +452,7 @@ function ResultBlock() {
               </SelectContent>
             </Select>
             <Select value={xAxis} onValueChange={(v) => setXAxis(v as "thang")}>
-              <SelectTrigger size="sm" className="w-[150px]">
+              <SelectTrigger className="h-8 text-[13px] w-[150px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -460,7 +460,7 @@ function ResultBlock() {
               </SelectContent>
             </Select>
             <Select value={yAxis} onValueChange={(v) => setYAxis(v as typeof yAxis)}>
-              <SelectTrigger size="sm" className="w-[190px]">
+              <SelectTrigger className="h-8 text-[13px] w-[190px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -553,7 +553,7 @@ function TextToSqlPage() {
             </p>
           </div>
           <Select defaultValue="ds1">
-            <SelectTrigger size="sm" className="w-[200px]">
+            <SelectTrigger className="h-8 text-[13px] w-[200px]">
               <Database className="size-3.5 text-muted-foreground" />
               <SelectValue />
             </SelectTrigger>
@@ -564,7 +564,7 @@ function TextToSqlPage() {
             </SelectContent>
           </Select>
           <Select defaultValue="public">
-            <SelectTrigger size="sm" className="w-[150px]">
+            <SelectTrigger className="h-8 text-[13px] w-[150px]">
               <Layers className="size-3.5 text-muted-foreground" />
               <SelectValue />
             </SelectTrigger>
@@ -688,7 +688,7 @@ function TextToSqlPage() {
                   <Paperclip className="size-3.5" /> Ngữ cảnh
                 </Button>
                 <Select defaultValue="ds1">
-                  <SelectTrigger size="sm" className="w-[180px] border-0 bg-muted">
+                  <SelectTrigger className="h-8 text-[13px] w-[180px] border-0 bg-muted">
                     <Database className="size-3.5 text-muted-foreground" />
                     <SelectValue />
                   </SelectTrigger>
