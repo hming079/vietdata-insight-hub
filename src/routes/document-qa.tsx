@@ -50,7 +50,7 @@ const statusMap = {
 
 function DocumentQaPage() {
   const [activeDoc, setActiveDoc] = useState("d1");
-  const [activeCitation, setActiveCitation] = useState<Citation>(citations[0]);
+  const [activeCitation, setActiveCitation] = useState<Citation>(citations[0]!);
   const [page, setPage] = useState(12);
   const [zoom, setZoom] = useState(100);
   const [q, setQ] = useState("");
@@ -182,18 +182,18 @@ function DocumentQaPage() {
                   Theo quy định hiện hành, khách hàng được yêu cầu đổi sản phẩm{" "}
                   <strong>trong vòng 07 ngày</strong> kể từ ngày nhận hàng, với điều kiện sản phẩm
                   còn nguyên tem nhãn, chưa qua sử dụng và có hoá đơn hợp lệ.{" "}
-                  <CitationChip c={citations[0]} onClick={openCitation} active={activeCitation.id === 1} />
+                  <CitationChip c={citations[0]!} onClick={openCitation} active={activeCitation.id === 1} />
                 </p>
                 <p>
                   Riêng sản phẩm điện tử có giá trị trên 10.000.000 VNĐ, thời hạn được kéo dài lên{" "}
                   <strong>15 ngày</strong> và phải kèm biên bản kiểm tra kỹ thuật của trung tâm bảo
                   hành uỷ quyền.{" "}
-                  <CitationChip c={citations[1]} onClick={openCitation} active={activeCitation.id === 2} />
+                  <CitationChip c={citations[1]!} onClick={openCitation} active={activeCitation.id === 2} />
                 </p>
                 <p>
                   Bộ phận Chăm sóc khách hàng phải phản hồi yêu cầu đổi trả trong vòng 24 giờ làm
                   việc và cập nhật trạng thái trên hệ thống CRM.{" "}
-                  <CitationChip c={citations[2]} onClick={openCitation} active={activeCitation.id === 3} />
+                  <CitationChip c={citations[2]!} onClick={openCitation} active={activeCitation.id === 3} />
                 </p>
               </div>
 
