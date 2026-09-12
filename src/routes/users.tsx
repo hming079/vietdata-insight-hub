@@ -91,7 +91,7 @@ function UsersPage() {
   const [status, setStatus] = useState("all");
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(emptyDraft);
-  const [perms, setPerms] = useState<string[]>(rolePermissions.Analyst);
+  const [perms, setPerms] = useState<string[]>((rolePermissions["Analyst"] ?? []));
 
   const filtered = rows.filter(
     (u) =>
@@ -103,13 +103,13 @@ function UsersPage() {
 
   const openNew = () => {
     setDraft(emptyDraft);
-    setPerms(rolePermissions.Analyst);
+    setPerms((rolePermissions["Analyst"] ?? []));
     setOpen(true);
   };
 
   const openEdit = (u: UserRow) => {
     setDraft({ id: u.id, name: u.name, email: u.email, role: u.role, status: u.status });
-    setPerms(rolePermissions[u.role]);
+    setPerms((rolePermissions[u.role] ?? []));
     setOpen(true);
   };
 
@@ -341,7 +341,7 @@ function UsersPage() {
                 value={draft.role}
                 onValueChange={(v) => {
                   setDraft({ ...draft, role: v as UserRow["role"] });
-                  setPerms(rolePermissions[v]);
+                  setPerms((rolePermissions[v] ?? []));
                 }}
               >
                 <SelectTrigger className="w-full">
