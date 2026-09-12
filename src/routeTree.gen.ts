@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DataSourcesRouteImport } from './routes/data-sources'
 import { Route as DocumentQaRouteImport } from './routes/document-qa'
+import { Route as KnowledgeBaseRouteImport } from './routes/knowledge-base'
 import { Route as OverviewRouteImport } from './routes/overview'
 import { Route as TextToSqlRouteImport } from './routes/text-to-sql'
 import { Route as UsersRouteImport } from './routes/users'
@@ -26,9 +28,19 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DataSourcesRoute = DataSourcesRouteImport.update({
+  id: '/data-sources',
+  path: '/data-sources',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocumentQaRoute = DocumentQaRouteImport.update({
   id: '/document-qa',
   path: '/document-qa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeBaseRoute = KnowledgeBaseRouteImport.update({
+  id: '/knowledge-base',
+  path: '/knowledge-base',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OverviewRoute = OverviewRouteImport.update({
@@ -50,7 +62,9 @@ const UsersRoute = UsersRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/data-sources': typeof DataSourcesRoute
   '/document-qa': typeof DocumentQaRoute
+  '/knowledge-base': typeof KnowledgeBaseRoute
   '/overview': typeof OverviewRoute
   '/text-to-sql': typeof TextToSqlRoute
   '/users': typeof UsersRoute
@@ -58,7 +72,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/data-sources': typeof DataSourcesRoute
   '/document-qa': typeof DocumentQaRoute
+  '/knowledge-base': typeof KnowledgeBaseRoute
   '/overview': typeof OverviewRoute
   '/text-to-sql': typeof TextToSqlRoute
   '/users': typeof UsersRoute
@@ -67,7 +83,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/data-sources': typeof DataSourcesRoute
   '/document-qa': typeof DocumentQaRoute
+  '/knowledge-base': typeof KnowledgeBaseRoute
   '/overview': typeof OverviewRoute
   '/text-to-sql': typeof TextToSqlRoute
   '/users': typeof UsersRoute
@@ -77,7 +95,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/data-sources'
     | '/document-qa'
+    | '/knowledge-base'
     | '/overview'
     | '/text-to-sql'
     | '/users'
@@ -85,7 +105,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/dashboard'
+    | '/data-sources'
     | '/document-qa'
+    | '/knowledge-base'
     | '/overview'
     | '/text-to-sql'
     | '/users'
@@ -93,7 +115,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/dashboard'
+    | '/data-sources'
     | '/document-qa'
+    | '/knowledge-base'
     | '/overview'
     | '/text-to-sql'
     | '/users'
@@ -102,7 +126,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  DataSourcesRoute: typeof DataSourcesRoute
   DocumentQaRoute: typeof DocumentQaRoute
+  KnowledgeBaseRoute: typeof KnowledgeBaseRoute
   OverviewRoute: typeof OverviewRoute
   TextToSqlRoute: typeof TextToSqlRoute
   UsersRoute: typeof UsersRoute
@@ -124,11 +150,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/data-sources': {
+      id: '/data-sources'
+      path: '/data-sources'
+      fullPath: '/data-sources'
+      preLoaderRoute: typeof DataSourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/document-qa': {
       id: '/document-qa'
       path: '/document-qa'
       fullPath: '/document-qa'
       preLoaderRoute: typeof DocumentQaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge-base': {
+      id: '/knowledge-base'
+      path: '/knowledge-base'
+      fullPath: '/knowledge-base'
+      preLoaderRoute: typeof KnowledgeBaseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/overview': {
@@ -158,7 +198,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  DataSourcesRoute: DataSourcesRoute,
   DocumentQaRoute: DocumentQaRoute,
+  KnowledgeBaseRoute: KnowledgeBaseRoute,
   OverviewRoute: OverviewRoute,
   TextToSqlRoute: TextToSqlRoute,
   UsersRoute: UsersRoute,
