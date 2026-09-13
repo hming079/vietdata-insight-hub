@@ -10,9 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuditLogRouteImport } from './routes/audit-log'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DataSourcesRouteImport } from './routes/data-sources'
 import { Route as DocumentQaRouteImport } from './routes/document-qa'
+import { Route as GlossaryRouteImport } from './routes/glossary'
 import { Route as KnowledgeBaseRouteImport } from './routes/knowledge-base'
 import { Route as OverviewRouteImport } from './routes/overview'
 import { Route as TextToSqlRouteImport } from './routes/text-to-sql'
@@ -21,6 +23,11 @@ import { Route as UsersRouteImport } from './routes/users'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditLogRoute = AuditLogRouteImport.update({
+  id: '/audit-log',
+  path: '/audit-log',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -36,6 +43,11 @@ const DataSourcesRoute = DataSourcesRouteImport.update({
 const DocumentQaRoute = DocumentQaRouteImport.update({
   id: '/document-qa',
   path: '/document-qa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GlossaryRoute = GlossaryRouteImport.update({
+  id: '/glossary',
+  path: '/glossary',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KnowledgeBaseRoute = KnowledgeBaseRouteImport.update({
@@ -61,9 +73,11 @@ const UsersRoute = UsersRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/audit-log': typeof AuditLogRoute
   '/dashboard': typeof DashboardRoute
   '/data-sources': typeof DataSourcesRoute
   '/document-qa': typeof DocumentQaRoute
+  '/glossary': typeof GlossaryRoute
   '/knowledge-base': typeof KnowledgeBaseRoute
   '/overview': typeof OverviewRoute
   '/text-to-sql': typeof TextToSqlRoute
@@ -71,9 +85,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/audit-log': typeof AuditLogRoute
   '/dashboard': typeof DashboardRoute
   '/data-sources': typeof DataSourcesRoute
   '/document-qa': typeof DocumentQaRoute
+  '/glossary': typeof GlossaryRoute
   '/knowledge-base': typeof KnowledgeBaseRoute
   '/overview': typeof OverviewRoute
   '/text-to-sql': typeof TextToSqlRoute
@@ -82,9 +98,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/audit-log': typeof AuditLogRoute
   '/dashboard': typeof DashboardRoute
   '/data-sources': typeof DataSourcesRoute
   '/document-qa': typeof DocumentQaRoute
+  '/glossary': typeof GlossaryRoute
   '/knowledge-base': typeof KnowledgeBaseRoute
   '/overview': typeof OverviewRoute
   '/text-to-sql': typeof TextToSqlRoute
@@ -94,9 +112,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/audit-log'
     | '/dashboard'
     | '/data-sources'
     | '/document-qa'
+    | '/glossary'
     | '/knowledge-base'
     | '/overview'
     | '/text-to-sql'
@@ -104,9 +124,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/audit-log'
     | '/dashboard'
     | '/data-sources'
     | '/document-qa'
+    | '/glossary'
     | '/knowledge-base'
     | '/overview'
     | '/text-to-sql'
@@ -114,9 +136,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/audit-log'
     | '/dashboard'
     | '/data-sources'
     | '/document-qa'
+    | '/glossary'
     | '/knowledge-base'
     | '/overview'
     | '/text-to-sql'
@@ -125,9 +149,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuditLogRoute: typeof AuditLogRoute
   DashboardRoute: typeof DashboardRoute
   DataSourcesRoute: typeof DataSourcesRoute
   DocumentQaRoute: typeof DocumentQaRoute
+  GlossaryRoute: typeof GlossaryRoute
   KnowledgeBaseRoute: typeof KnowledgeBaseRoute
   OverviewRoute: typeof OverviewRoute
   TextToSqlRoute: typeof TextToSqlRoute
@@ -141,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit-log': {
+      id: '/audit-log'
+      path: '/audit-log'
+      fullPath: '/audit-log'
+      preLoaderRoute: typeof AuditLogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -162,6 +195,13 @@ declare module '@tanstack/react-router' {
       path: '/document-qa'
       fullPath: '/document-qa'
       preLoaderRoute: typeof DocumentQaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/glossary': {
+      id: '/glossary'
+      path: '/glossary'
+      fullPath: '/glossary'
+      preLoaderRoute: typeof GlossaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/knowledge-base': {
@@ -197,9 +237,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuditLogRoute: AuditLogRoute,
   DashboardRoute: DashboardRoute,
   DataSourcesRoute: DataSourcesRoute,
   DocumentQaRoute: DocumentQaRoute,
+  GlossaryRoute: GlossaryRoute,
   KnowledgeBaseRoute: KnowledgeBaseRoute,
   OverviewRoute: OverviewRoute,
   TextToSqlRoute: TextToSqlRoute,
