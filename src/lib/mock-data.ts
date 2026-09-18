@@ -551,3 +551,110 @@ export const queryVolume = [
 
 export const formatVnd = (n: number) =>
   new Intl.NumberFormat("vi-VN", { maximumFractionDigits: 0 }).format(n);
+
+/* ----------------------------- Query history ------------------------------ */
+
+export type QueryHistoryRow = {
+  id: string;
+  type: "SQL" | "RAG";
+  question: string;
+  user: string;
+  source: string;
+  date: string;
+  duration: string;
+  status: Status;
+  statusLabel: string;
+  sql?: string;
+  corrected?: boolean;
+  correctionNote?: string;
+  rowCount?: number;
+  answer?: string;
+  sources?: { doc: string; page: number; score: number; excerpt: string }[];
+};
+
+export const queryHistory: QueryHistoryRow[] = [
+  {
+    id: "q1024", type: "SQL", question: "Doanh thu theo tháng của ngành hàng Điện tử trong năm 2026?",
+    user: "Nguyễn Hải Minh", source: "Retail Database", date: "18/09/2026 14:52", duration: "1.8s",
+    status: "success", statusLabel: "Thành công", rowCount: 9, corrected: true,
+    correctionNote: "Cột `amount` không tồn tại → tự sửa thành `total_amount`",
+    sql: "SELECT DATE_TRUNC('month', o.order_date) AS month,\n       SUM(oi.total_amount) AS revenue\nFROM orders o\nJOIN order_items oi ON oi.order_id = o.order_id\nWHERE o.order_date >= '2026-01-01'\nGROUP BY 1\nORDER BY 1",
+  },
+  {
+    id: "q1023", type: "RAG", question: "Chính sách đổi trả hàng cho khách doanh nghiệp là gì?",
+    user: "Trần Thị Bích Ngọc", source: "Kho tri thức nội bộ", date: "18/09/2026 14:20", duration: "2.4s",
+    status: "success", statusLabel: "Thành công",
+    answer: "Khách hàng doanh nghiệp được đổi trả trong vòng 30 ngày kể từ ngày xuất hoá đơn, với điều kiện sản phẩm còn nguyên tem niêm phong. Chi phí vận chuyển đổi trả do bên bán chịu nếu lỗi kỹ thuật.",
+    sources: [
+      { doc: "Chinh-sach-ban-hang-2026.pdf", page: 12, score: 0.94, excerpt: "Thời hạn đổi trả đối với khách hàng doanh nghiệp là 30 ngày kể từ ngày xuất hoá đơn..." },
+      { doc: "Quy-trinh-CSKH.pdf", page: 5, score: 0.88, excerpt: "Trường hợp sản phẩm lỗi kỹ thuật, chi phí vận chuyển do công ty chi trả." },
+    ],
+  },
+  {
+    id: "q1022", type: "SQL", question: "Top 10 khách hàng chi tiêu nhiều nhất quý 3?",
+    user: "Lê Quang Huy", source: "Sales Database", date: "18/09/2026 11:07", duration: "0.9s",
+    status: "success", statusLabel: "Thành công", rowCount: 10,
+    sql: "SELECT c.full_name, SUM(o.total_amount) AS spend\nFROM customers c\nJOIN orders o ON o.customer_id = c.customer_id\nWHERE o.order_date BETWEEN '2026-07-01' AND '2026-09-30'\nGROUP BY 1\nORDER BY spend DESC\nLIMIT 10",
+  },
+  {
+    id: "q1021", type: "SQL", question: "Tồn kho dưới mức an toàn tại chi nhánh Đà Nẵng?",
+    user: "Vũ Khánh Linh", source: "Inventory Warehouse", date: "18/09/2026 09:45", duration: "—",
+    status: "error", statusLabel: "Thất bại",
+    correctionNote: "Không tìm thấy bảng `stock_safety_level` trong lược đồ đã kết nối",
+    sql: "SELECT p.name, s.qty\nFROM stock s\nJOIN stock_safety_level l ON l.sku = s.sku\nWHERE s.branch = 'Đà Nẵng' AND s.qty < l.min_qty",
+  },
+  {
+    id: "q1020", type: "RAG", question: "Quy định phê duyệt chiết khấu trên 15%?",
+    user: "Hoàng Minh Tuấn", source: "Kho tri thức nội bộ", date: "17/09/2026 16:38", duration: "3.1s",
+    status: "warning", statusLabel: "Độ tin cậy thấp",
+    answer: "Chiết khấu trên 15% cần phê duyệt của Giám đốc kinh doanh. Tài liệu hiện có chưa nêu rõ quy trình cho mức trên 30%.",
+    sources: [
+      { doc: "Quy-che-tai-chinh-2026.pdf", page: 22, score: 0.61, excerpt: "Mọi khoản chiết khấu vượt 15% giá niêm yết phải được Giám đốc kinh doanh phê duyệt bằng văn bản." },
+    ],
+  },
+  {
+    id: "q1019", type: "SQL", question: "So sánh doanh thu kênh online và cửa hàng tháng 8?",
+    user: "Nguyễn Hải Minh", source: "Retail Database", date: "17/09/2026 10:12", duration: "1.2s",
+    status: "success", statusLabel: "Thành công", rowCount: 2,
+    sql: "SELECT o.channel, SUM(o.total_amount) AS revenue\nFROM orders o\nWHERE o.order_date BETWEEN '2026-08-01' AND '2026-08-31'\nGROUP BY 1",
+  },
+  {
+    id: "q1018", type: "RAG", question: "Thời hạn bảo hành thiết bị điện tử nhập khẩu?",
+    user: "Bùi Ngọc Anh", source: "Kho tri thức nội bộ", date: "16/09/2026 15:02", duration: "2.0s",
+    status: "success", statusLabel: "Thành công",
+    answer: "Thiết bị điện tử nhập khẩu được bảo hành 24 tháng theo tiêu chuẩn nhà sản xuất, áp dụng tại toàn bộ trung tâm bảo hành uỷ quyền.",
+    sources: [
+      { doc: "So-tay-bao-hanh.pdf", page: 3, score: 0.91, excerpt: "Thời hạn bảo hành tiêu chuẩn cho hàng nhập khẩu là 24 tháng." },
+    ],
+  },
+];
+
+/* --------------------------- Data access (RLS) ---------------------------- */
+
+export const dataAccessCatalog: { id: string; name: string; engine: string; tables: string[] }[] = [
+  { id: "ds1", name: "Retail Database", engine: "PostgreSQL", tables: ["customers", "orders", "order_items", "products"] },
+  { id: "ds2", name: "Sales Database", engine: "SQL Server", tables: ["deals", "accounts", "sales_targets"] },
+  { id: "ds3", name: "Inventory Warehouse", engine: "MySQL", tables: ["stock", "warehouses", "transfers"] },
+  { id: "ds4", name: "Marketing Analytics", engine: "BigQuery", tables: ["campaigns", "ad_events"] },
+];
+
+export const rlsDimensions = [
+  { key: "branch", label: "Chi nhánh", values: ["HCM - Quận 1", "HCM - Thủ Đức", "Hà Nội - Cầu Giấy", "Đà Nẵng"] },
+  { key: "region", label: "Khu vực", values: ["Miền Bắc", "Miền Trung", "Miền Nam"] },
+];
+
+export type UserDataAccess = {
+  sources: Record<string, string[]>;
+  rls: { dimension: string; values: string[] } | null;
+};
+
+export const defaultDataAccess: Record<string, UserDataAccess> = {
+  u1: { sources: { ds1: ["customers", "orders", "order_items", "products"], ds2: ["deals", "accounts", "sales_targets"], ds3: ["stock", "warehouses", "transfers"], ds4: ["campaigns", "ad_events"] }, rls: null },
+  u2: { sources: { ds1: ["orders", "order_items", "products"], ds2: ["deals", "sales_targets"] }, rls: { dimension: "region", values: ["Miền Nam"] } },
+  u3: { sources: { ds1: ["orders", "products"] }, rls: { dimension: "branch", values: ["Hà Nội - Cầu Giấy"] } },
+  u4: { sources: { ds1: ["products"] }, rls: null },
+  u5: { sources: { ds3: ["stock"] }, rls: { dimension: "branch", values: ["Đà Nẵng"] } },
+  u6: { sources: {}, rls: null },
+  u7: { sources: { ds1: ["customers", "orders", "order_items", "products"], ds4: ["campaigns", "ad_events"] }, rls: null },
+  u8: { sources: { ds1: ["products"] }, rls: { dimension: "region", values: ["Miền Trung"] } },
+};
